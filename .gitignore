@@ -1,0 +1,14 @@
+# Posé par APPGEN à la génération : ce qui ne part pas sur GitHub.
+# Artefacts reconstruits à chaque build ou génération.
+build/
+.dart_tool/
+**/__pycache__/
+backend/.venv/
+backend/releases/
+.appgen-automation-report.json
+
+# Secrets : clé de signature du Store et variables d'environnement.
+key.properties
+*.jks
+*.keystore
+.env

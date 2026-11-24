@@ -1,0 +1,26 @@
+{
+  "title": "Produits recommandés",
+  "products": [
+    {
+      "id": "produit-1",
+      "title": "Détachant au fiel de boeuf",
+      "description": "Détachant au fiel de boeuf",
+      "imageUrl": "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/71UIk7s9DiL._AC_SL1500_.jpg",
+      "productUrl": "https://www.amazon.fr/STARWAX-FABULOUS-D%C3%A9tachant-Spray-500mL/dp/B082VW86LW"
+    },
+    {
+      "id": "produit-2",
+      "title": "Liquide vaisselle",
+      "description": "Liquide Vaisselle Éclat Citron - Formule Super Dégraissante - Fabriqué en France - Format Familial 1,5L",
+      "imageUrl": "https://m.media-amazon.com/images/I/61JEuHiPdKL._AC_SL1500_.jpg",
+      "productUrl": "https://www.amazon.fr/Paic-Liquide-Vaisselle-Formule-D%C3%A9graissante/dp/B0GTQGQVC1"
+    },
+    {
+      "id": "produit-3",
+      "title": "Terre de Sommières",
+      "description": "Terre de Sommières 100 g - Détachant Naturel et Absorbant - Élimine les Odeurs d'Urine, Litière de Chat, Tapis, Cendriers",
+      "imageUrl": "https://m.media-amazon.com/images/I/71gmJ1lp-yL._AC_SL1500_.jpg",
+      "productUrl": "https://www.amazon.fr/Terre-Sommi%C3%A8res-100-D%C3%A9tachant-D%C3%A9shydratation/dp/B0DKJ6VFTW"
+    }
+  ]
+}

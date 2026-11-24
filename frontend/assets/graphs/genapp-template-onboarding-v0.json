@@ -1,0 +1,1711 @@
+{
+  "id": "detash_parcours_v1",
+  "title": "Detash : enlever une tache sans abîmer",
+  "start_node": "q_tissu",
+  "ui": {
+    "intro_active": false,
+    "subtitles_active": false,
+    "path_numbering_active": true
+  },
+  "nodes": [
+    {
+      "id": "q_tissu",
+      "type": "question",
+      "title": "Tissu",
+      "prompt": "En quelle matière est le textile taché ?",
+      "input_key": "tissu",
+      "input_type": "choice",
+      "choices": [
+        {
+          "value": "coton_lin",
+          "label": "Coton ou lin"
+        },
+        {
+          "value": "synthetique",
+          "label": "Synthétique (polyester, polyamide…)"
+        },
+        {
+          "value": "laine",
+          "label": "Laine"
+        },
+        {
+          "value": "soie",
+          "label": "Soie"
+        },
+        {
+          "value": "jean",
+          "label": "Jean"
+        },
+        {
+          "value": "cuir_daim",
+          "label": "Cuir ou daim"
+        },
+        {
+          "value": "inconnu",
+          "label": "Je ne sais pas"
+        }
+      ],
+      "next": {
+        "coton_lin": "q_etiquette",
+        "synthetique": "q_etiquette",
+        "laine": "q_etiquette",
+        "soie": "a_urgence_soie",
+        "jean": "q_etiquette",
+        "cuir_daim": "a_urgence_cuir",
+        "inconnu": "a_avant_pressing"
+      }
+    },
+    {
+      "id": "a_urgence_soie",
+      "type": "action",
+      "title": "Soie : pressing",
+      "message": "La soie garde une auréole au moindre contact avec l'eau ou un détachant ménager. Confie-la à un pressing.",
+      "instructions": [
+        "Ne mouille pas la tache, même avec un peu d'eau.",
+        "Ne frotte pas : la soie perd son éclat et se marque.",
+        "Tamponne seulement l'excès avec un papier absorbant blanc, sans appuyer.",
+        "Ne repasse pas la zone tachée.",
+        "Apporte la pièce au pressing au plus vite et dis ce qui l'a tachée."
+      ],
+      "next": "fin_pressing_delicat"
+    },
+    {
+      "id": "a_urgence_cuir",
+      "type": "action",
+      "title": "Cuir ou daim : spécialiste",
+      "message": "Le cuir et le daim se confient à un pressing spécialisé cuir ou à un cordonnier.",
+      "instructions": [
+        "Ne mets pas d'eau : elle laisse une auréole et durcit la peau.",
+        "N'utilise ni détachant pour textile ni alcool : ils décolorent le cuir.",
+        "Ne frotte pas le daim : tu écraserais ses poils.",
+        "Tamponne seulement l'excès avec un papier absorbant.",
+        "Ne fais pas sécher près d'un radiateur ni au sèche-cheveux.",
+        "Apporte l'article rapidement et dis ce qui l'a taché."
+      ],
+      "next": "fin_pressing_cuir"
+    },
+    {
+      "id": "a_avant_pressing",
+      "type": "action",
+      "title": "Avant le pressing",
+      "message": "Ce textile se confie à un pressing : un produit mal choisi pourrait l'abîmer pour de bon.",
+      "instructions": [
+        "Ne mets ni eau ni produit sur la tache.",
+        "Tamponne seulement l'excès avec un papier absorbant, sans frotter.",
+        "Ne repasse pas et ne passe pas au sèche-linge.",
+        "Apporte le vêtement vite : une tache récente part mieux.",
+        "Dis au pressing ce qui a taché et depuis quand."
+      ],
+      "next": "fin_pressing_delicat"
+    },
+    {
+      "id": "q_etiquette",
+      "type": "question",
+      "title": "Étiquette",
+      "prompt": "Que dit l'étiquette d'entretien du vêtement ?",
+      "input_key": "etiquette",
+      "input_type": "choice",
+      "choices": [
+        {
+          "value": "lavable",
+          "label": "Lavable en machine ou à la main"
+        },
+        {
+          "value": "sec",
+          "label": "Nettoyage à sec uniquement"
+        },
+        {
+          "value": "inconnue",
+          "label": "Pas d'étiquette, ou illisible"
+        }
+      ],
+      "next": {
+        "lavable": "q_couleur",
+        "sec": "a_avant_pressing",
+        "inconnue": "a_sans_etiquette"
+      }
+    },
+    {
+      "id": "a_sans_etiquette",
+      "type": "action",
+      "title": "Sans étiquette",
+      "message": "Sans étiquette, on ne sait pas ce que le tissu supporte. On reste prudent.",
+      "instructions": [
+        "Considère que le tissu ne supporte pas plus de 30 °C, à chaque étape.",
+        "Lave à la main ou en programme délicat.",
+        "Teste chaque produit sur une zone cachée avant de l'appliquer sur la tache.",
+        "N'utilise jamais d'eau de Javel."
+      ],
+      "next": "q_couleur"
+    },
+    {
+      "id": "q_couleur",
+      "type": "question",
+      "title": "Couleur",
+      "prompt": "De quelle couleur est le textile ?",
+      "input_key": "couleur",
+      "input_type": "choice",
+      "choices": [
+        {
+          "value": "blanc",
+          "label": "Blanc"
+        },
+        {
+          "value": "couleur",
+          "label": "De couleur, imprimé ou écru"
+        }
+      ],
+      "next": {
+        "blanc": "q_tache",
+        "couleur": "q_tache"
+      }
+    },
+    {
+      "id": "q_tache",
+      "type": "question",
+      "title": "Type de tache",
+      "prompt": "Quelle est la tache ?",
+      "input_key": "tache",
+      "input_type": "choice",
+      "choices": [
+        {
+          "value": "vin",
+          "label": "Vin"
+        },
+        {
+          "value": "cafe",
+          "label": "Café ou thé"
+        },
+        {
+          "value": "gras",
+          "label": "Gras (huile, beurre, sauce)"
+        },
+        {
+          "value": "sang",
+          "label": "Sang"
+        },
+        {
+          "value": "encre",
+          "label": "Encre"
+        },
+        {
+          "value": "herbe",
+          "label": "Herbe"
+        },
+        {
+          "value": "transpiration",
+          "label": "Transpiration ou jaunissement"
+        },
+        {
+          "value": "rouille",
+          "label": "Rouille"
+        },
+        {
+          "value": "maquillage",
+          "label": "Maquillage"
+        },
+        {
+          "value": "inconnue",
+          "label": "Je ne sais pas"
+        }
+      ],
+      "next": {
+        "vin": "q_anciennete",
+        "cafe": "q_anciennete",
+        "gras": "q_anciennete",
+        "sang": "q_anciennete",
+        "encre": "q_type_encre",
+        "herbe": "q_anciennete",
+        "transpiration": "q_type_aureole",
+        "rouille": "aig_gestes",
+        "maquillage": "q_type_maquillage",
+        "inconnue": "q_anciennete"
+      }
+    },
+    {
+      "id": "q_type_encre",
+      "type": "question",
+      "title": "Type d'encre",
+      "prompt": "Qu'est-ce qui a fait la tache d'encre ?",
+      "input_key": "type_encre",
+      "input_type": "choice",
+      "choices": [
+        {
+          "value": "bille",
+          "label": "Stylo à bille ou marqueur"
+        },
+        {
+          "value": "eau",
+          "label": "Feutre, surligneur ou stylo plume"
+        },
+        {
+          "value": "inconnue",
+          "label": "Je ne sais pas"
+        }
+      ],
+      "next": {
+        "bille": "q_anciennete",
+        "eau": "q_anciennete",
+        "inconnue": "q_anciennete"
+      }
+    },
+    {
+      "id": "q_type_maquillage",
+      "type": "question",
+      "title": "Type de maquillage",
+      "prompt": "Quel maquillage a fait la tache ?",
+      "input_key": "type_maquillage",
+      "input_type": "choice",
+      "choices": [
+        {
+          "value": "creme",
+          "label": "Rouge à lèvres, fond de teint ou mascara"
+        },
+        {
+          "value": "poudre",
+          "label": "Poudre, blush ou fard à paupières"
+        }
+      ],
+      "next": {
+        "creme": "q_anciennete",
+        "poudre": "q_anciennete"
+      }
+    },
+    {
+      "id": "q_type_aureole",
+      "type": "question",
+      "title": "Type de jaunissement",
+      "prompt": "Quel genre de marque jaune vois-tu ?",
+      "input_key": "type_aureole",
+      "input_type": "choice",
+      "choices": [
+        {
+          "value": "aureoles",
+          "label": "Auréoles sous les bras ou au col"
+        },
+        {
+          "value": "jauni",
+          "label": "Linge jauni par le temps, sur une grande zone"
+        }
+      ],
+      "next": {
+        "aureoles": "aig_gestes",
+        "jauni": "aig_gestes"
+      }
+    },
+    {
+      "id": "q_anciennete",
+      "type": "question",
+      "title": "Ancienneté",
+      "prompt": "Depuis combien de temps, en heures, la tache est-elle là ?",
+      "input_key": "anciennete",
+      "input_type": "choice",
+      "choices": [
+        {
+          "value": "fraiche",
+          "label": "Moins d'1 heure"
+        },
+        {
+          "value": "moins_24h",
+          "label": "De 1 à 24 heures"
+        },
+        {
+          "value": "ancienne",
+          "label": "Plus de 24 heures"
+        },
+        {
+          "value": "inconnue",
+          "label": "Je ne sais pas"
+        }
+      ],
+      "next": {
+        "fraiche": "aig_gestes",
+        "moins_24h": "q_machine",
+        "ancienne": "q_machine",
+        "inconnue": "q_machine"
+      }
+    },
+    {
+      "id": "q_machine",
+      "type": "question",
+      "title": "Lavage ou séchage",
+      "prompt": "Depuis la tache, le vêtement est-il passé en machine ?",
+      "input_key": "machine",
+      "input_type": "choice",
+      "choices": [
+        {
+          "value": "non",
+          "label": "Non, pas encore"
+        },
+        {
+          "value": "lave",
+          "label": "Oui, lavé puis séché à l'air"
+        },
+        {
+          "value": "seche",
+          "label": "Oui, et passé au sèche-linge ou au fer"
+        },
+        {
+          "value": "inconnue",
+          "label": "Je ne sais pas"
+        }
+      ],
+      "next": {
+        "non": "aig_gestes",
+        "lave": "aig_gestes",
+        "seche": "aig_gestes",
+        "inconnue": "aig_gestes"
+      }
+    },
+    {
+      "id": "aig_gestes",
+      "type": "router",
+      "title": "Gestes selon la tache",
+      "routes": [
+        {
+          "when": {
+            "and": [
+              {
+                "==": [
+                  {
+                    "var": "tache"
+                  },
+                  "transpiration"
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "type_aureole"
+                  },
+                  "jauni"
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "tissu"
+                  },
+                  "laine"
+                ]
+              }
+            ]
+          },
+          "next": "a_laine_jaunie"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "vin"
+            ]
+          },
+          "next": "g_vin"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "cafe"
+            ]
+          },
+          "next": "g_cafe"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "gras"
+            ]
+          },
+          "next": "g_gras"
+        },
+        {
+          "when": {
+            "and": [
+              {
+                "==": [
+                  {
+                    "var": "tache"
+                  },
+                  "maquillage"
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "type_maquillage"
+                  },
+                  "poudre"
+                ]
+              }
+            ]
+          },
+          "next": "g_poudre"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "maquillage"
+            ]
+          },
+          "next": "g_gras"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "sang"
+            ]
+          },
+          "next": "g_sang"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "encre"
+            ]
+          },
+          "next": "g_encre"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "herbe"
+            ]
+          },
+          "next": "g_herbe"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "transpiration"
+            ]
+          },
+          "next": "g_transpiration"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "rouille"
+            ]
+          },
+          "next": "g_rouille"
+        }
+      ],
+      "default_next": "g_inconnue"
+    },
+    {
+      "id": "a_laine_jaunie",
+      "type": "action",
+      "title": "Laine jaunie : pressing",
+      "message": "Le jaunissement de la laine ne part qu'avec des produits blanchissants, qui abîment cette fibre. Confie-la à un pressing.",
+      "instructions": [
+        "N'essaie ni eau de Javel, ni eau oxygénée, ni oxygène actif : ils attaquent la laine.",
+        "Pas de bicarbonate : il rend la laine rêche.",
+        "Ne fais pas tremper à l'eau chaude : la laine feutrerait.",
+        "Apporte le lainage au pressing en signalant le jaunissement."
+      ],
+      "next": "fin_pressing_delicat"
+    },
+    {
+      "id": "g_vin",
+      "type": "action",
+      "title": "À éviter : vin",
+      "message": "Avant tout, évite ces gestes : ils fixent la tache de vin.",
+      "instructions": [
+        "Pas d'eau chaude : elle cuit les tanins du vin dans les fibres.",
+        "Ne frotte pas : tu étalerais la tache.",
+        "Pas de sel : en séchant, il peut fixer la couleur.",
+        "Ne verse pas de vin blanc dessus : c'est une fausse bonne idée.",
+        "Ne mets pas le vêtement en machine avant d'avoir traité la tache."
+      ],
+      "next": "aig_regles_tissu"
+    },
+    {
+      "id": "g_cafe",
+      "type": "action",
+      "title": "À éviter : café ou thé",
+      "message": "Avant tout, évite ces gestes : ils fixent la tache de café ou de thé.",
+      "instructions": [
+        "Pas d'eau chaude, surtout s'il y avait du lait : la chaleur cuit la tache.",
+        "Pas de savon en pain pour commencer : il peut fixer les tanins.",
+        "Ne frotte pas : tu étalerais la tache.",
+        "Pas de sèche-linge ni de fer tant que la tache est visible."
+      ],
+      "next": "aig_regles_tissu"
+    },
+    {
+      "id": "g_gras",
+      "type": "action",
+      "title": "À éviter : gras",
+      "message": "Avant tout, évite ces gestes : une tache grasse s'étale et se fixe vite.",
+      "instructions": [
+        "Ne mets pas d'eau tout de suite : elle ne dissout pas le gras et le fait pénétrer.",
+        "Ne frotte pas : le gras s'enfoncerait dans les fibres.",
+        "Ne repasse pas : la chaleur fixe le gras.",
+        "Ne lave pas en machine sans avoir traité la tache."
+      ],
+      "next": "aig_regles_tissu"
+    },
+    {
+      "id": "g_poudre",
+      "type": "action",
+      "title": "À éviter : poudre",
+      "message": "Avant tout, évite ces gestes : la poudre de maquillage s'incruste dès qu'on la mouille.",
+      "instructions": [
+        "Ne mouille pas la tache tant que la poudre n'est pas retirée.",
+        "Ne frotte pas avec un chiffon humide : tu ferais pénétrer les pigments.",
+        "Ne souffle pas en appuyant avec les doigts : tu étalerais la poudre.",
+        "Pas d'eau chaude."
+      ],
+      "next": "aig_regles_tissu"
+    },
+    {
+      "id": "g_sang",
+      "type": "action",
+      "title": "À éviter : sang",
+      "message": "Avant tout, évite ces gestes : ils rendent le sang presque impossible à enlever.",
+      "instructions": [
+        "Jamais d'eau chaude : elle coagule le sang dans les fibres.",
+        "Ne frotte pas : tu étalerais la tache.",
+        "Pas d'eau de Javel : elle abîme les fibres et peut faire jaunir la tache.",
+        "Pas de sèche-linge ni de fer tant que la tache est visible."
+      ],
+      "next": "aig_regles_tissu"
+    },
+    {
+      "id": "g_encre",
+      "type": "action",
+      "title": "À éviter : encre",
+      "message": "Avant tout, évite ces gestes : l'encre s'étale très vite.",
+      "instructions": [
+        "Ne frotte pas : l'encre fuserait autour de la tache.",
+        "Ne traite pas la tache sans protéger l'autre épaisseur : glisse toujours un papier absorbant dessous.",
+        "Ne mets pas le vêtement en machine : l'encre se répandrait sur tout le tissu.",
+        "Pas de laque pour cheveux : les laques actuelles collent plus qu'elles ne détachent."
+      ],
+      "next": "aig_regles_tissu"
+    },
+    {
+      "id": "g_herbe",
+      "type": "action",
+      "title": "À éviter : herbe",
+      "message": "Avant tout, évite ces gestes : ils fixent le vert de l'herbe.",
+      "instructions": [
+        "Pas d'eau chaude : elle fixe la tache.",
+        "Ne frotte pas à l'eau seule : le vert s'étalerait.",
+        "Pas d'eau de Javel : elle peut fixer la tache.",
+        "Ne mets pas en machine avant d'avoir traité la tache."
+      ],
+      "next": "aig_regles_tissu"
+    },
+    {
+      "id": "g_transpiration",
+      "type": "action",
+      "title": "À éviter : jaunissement",
+      "message": "Avant tout, évite ces gestes : ils font jaunir davantage.",
+      "instructions": [
+        "Pas d'eau de Javel : elle réagit avec la sueur et jaunit encore plus le tissu.",
+        "Ne repasse pas la zone jaunie : la chaleur fixe les dépôts.",
+        "Pas d'eau très chaude pour commencer.",
+        "Ne frotte pas avec une brosse dure : les fibres usées se déchirent."
+      ],
+      "next": "aig_regles_tissu"
+    },
+    {
+      "id": "g_rouille",
+      "type": "action",
+      "title": "À éviter : rouille",
+      "message": "Avant tout, évite ces gestes : ils rendent la rouille définitive.",
+      "instructions": [
+        "Pas d'eau de Javel : elle fonce la rouille et la fixe.",
+        "Ne frotte pas : le tissu rouillé est fragile et peut se trouer.",
+        "Ne lave pas en machine avant traitement : la rouille peut marquer le reste du linge.",
+        "Ne laisse pas l'objet rouillé en contact avec le tissu."
+      ],
+      "next": "aig_regles_tissu"
+    },
+    {
+      "id": "g_inconnue",
+      "type": "action",
+      "title": "À éviter : tache inconnue",
+      "message": "Sans savoir ce qu'est la tache, on choisit la voie la plus douce. Évite ces gestes.",
+      "instructions": [
+        "Pas d'eau chaude : elle fixe la plupart des taches.",
+        "Pas d'eau de Javel ni de produit fort.",
+        "Ne mélange jamais deux produits.",
+        "Ne frotte pas.",
+        "Pas de sèche-linge ni de fer tant que la tache est visible."
+      ],
+      "next": "aig_regles_tissu"
+    },
+    {
+      "id": "aig_regles_tissu",
+      "type": "router",
+      "title": "Règles selon le tissu",
+      "routes": [
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tissu"
+              },
+              "laine"
+            ]
+          },
+          "next": "a_regles_laine"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tissu"
+              },
+              "synthetique"
+            ]
+          },
+          "next": "a_regles_synthetique"
+        },
+        {
+          "when": {
+            "and": [
+              {
+                "==": [
+                  {
+                    "var": "tissu"
+                  },
+                  "jean"
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "couleur"
+                  },
+                  "couleur"
+                ]
+              }
+            ]
+          },
+          "next": "a_regles_jean"
+        }
+      ],
+      "default_next": "aig_test"
+    },
+    {
+      "id": "a_regles_laine",
+      "type": "action",
+      "title": "À éviter : laine",
+      "message": "La laine feutre et se déforme facilement. Respecte ces règles à chaque étape.",
+      "instructions": [
+        "Jamais d'eau chaude : 30 °C au plus.",
+        "Ne frotte pas et ne tords pas : tamponne seulement.",
+        "Pas de lessive aux enzymes, d'eau de Javel ni d'oxygène actif : ils attaquent la fibre.",
+        "Fais sécher à plat, loin d'un radiateur."
+      ],
+      "next": "aig_test"
+    },
+    {
+      "id": "a_regles_synthetique",
+      "type": "action",
+      "title": "À éviter : synthétique",
+      "message": "Les fibres synthétiques craignent la chaleur et certains solvants. Respecte ces règles à chaque étape.",
+      "instructions": [
+        "Pas d'eau au-delà de 40 °C.",
+        "Jamais d'acétone ni de dissolvant à ongles : ils font fondre certaines fibres.",
+        "Pas de fer chaud sur la zone traitée.",
+        "Avant d'utiliser de l'alcool, teste-le sur une couture intérieure."
+      ],
+      "next": "aig_test"
+    },
+    {
+      "id": "a_regles_jean",
+      "type": "action",
+      "title": "À éviter : jean",
+      "message": "Ton jean est teint à l'indigo, une teinture qui part facilement. Respecte ces règles à chaque étape.",
+      "instructions": [
+        "Travaille par l'envers du tissu.",
+        "Ne frotte pas fort : le jean blanchit là où il est frotté.",
+        "Jamais d'eau de Javel : elle laisse des taches claires définitives.",
+        "Lave-le retourné, avec des vêtements foncés."
+      ],
+      "next": "aig_test"
+    },
+    {
+      "id": "aig_test",
+      "type": "router",
+      "title": "Test si couleur",
+      "routes": [
+        {
+          "when": {
+            "==": [
+              {
+                "var": "couleur"
+              },
+              "couleur"
+            ]
+          },
+          "next": "a_test_discret"
+        }
+      ],
+      "default_next": "aig_etat"
+    },
+    {
+      "id": "a_test_discret",
+      "type": "action",
+      "title": "Test des couleurs",
+      "message": "Sur un textile de couleur, teste chaque produit avant de l'utiliser sur la tache. [image : test sur une couture intérieure]",
+      "instructions": [
+        "Choisis une zone cachée : couture intérieure, ourlet ou revers.",
+        "Dépose un peu de produit et attends 5 minutes.",
+        "Tamponne avec un chiffon blanc humide.",
+        "Si le chiffon se colore ou si la teinte change, n'utilise pas ce produit : confie le vêtement à un pressing."
+      ],
+      "next": "aig_etat"
+    },
+    {
+      "id": "aig_etat",
+      "type": "router",
+      "title": "Selon l'état de la tache",
+      "routes": [
+        {
+          "when": {
+            "==": [
+              {
+                "var": "anciennete"
+              },
+              "fraiche"
+            ]
+          },
+          "next": "a_agir_vite"
+        },
+        {
+          "when": {
+            "in": [
+              {
+                "var": "machine"
+              },
+              [
+                "seche",
+                "inconnue"
+              ]
+            ]
+          },
+          "next": "a_fixee_chaleur"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "machine"
+              },
+              "lave"
+            ]
+          },
+          "next": "a_tache_installee"
+        },
+        {
+          "when": {
+            "in": [
+              {
+                "var": "anciennete"
+              },
+              [
+                "ancienne",
+                "inconnue"
+              ]
+            ]
+          },
+          "next": "a_tache_installee"
+        }
+      ],
+      "default_next": "aig_prep"
+    },
+    {
+      "id": "a_agir_vite",
+      "type": "action",
+      "title": "Tache fraîche",
+      "message": "Ta tache est toute fraîche : c'est le meilleur moment pour agir.",
+      "instructions": [
+        "Retire l'excès tout de suite : racle doucement avec le dos d'une cuillère.",
+        "Éponge délicatement avec du papier absorbant, du bord vers le centre, sans frotter.",
+        "Prépare le matériel sans attendre : plus la tache sèche, plus elle s'accroche."
+      ],
+      "next": "aig_prep"
+    },
+    {
+      "id": "a_tache_installee",
+      "type": "action",
+      "title": "Tache installée",
+      "message": "Ta tache a eu le temps de s'installer dans les fibres. Elle demandera plus de patience.",
+      "instructions": [
+        "Ne relance pas de lavage tant qu'elle est visible : chaque passage en machine la fixe un peu plus.",
+        "Pour la première méthode, laisse agir chaque produit deux fois plus longtemps qu'indiqué.",
+        "Tu peux répéter la première méthode une fois avant de juger le résultat."
+      ],
+      "next": "aig_prep"
+    },
+    {
+      "id": "a_fixee_chaleur",
+      "type": "action",
+      "title": "Tache fixée par la chaleur",
+      "message": "La chaleur du sèche-linge ou du fer a pu cuire la tache dans les fibres. Elle sera plus tenace.",
+      "instructions": [
+        "Ne repasse pas et ne remets pas au sèche-linge tant que la tache est visible.",
+        "Pour la première méthode, laisse agir chaque produit deux fois plus longtemps qu'indiqué.",
+        "Répète la première méthode une fois avant de juger le résultat.",
+        "Fais sécher à l'air libre pour bien voir ce qui reste."
+      ],
+      "next": "aig_prep"
+    },
+    {
+      "id": "aig_prep",
+      "type": "router",
+      "title": "Méthode selon la tache",
+      "routes": [
+        {
+          "when": {
+            "in": [
+              {
+                "var": "tache"
+              },
+              [
+                "vin",
+                "cafe"
+              ]
+            ]
+          },
+          "next": "p_tanins"
+        },
+        {
+          "when": {
+            "in": [
+              {
+                "var": "tache"
+              },
+              [
+                "gras",
+                "maquillage"
+              ]
+            ]
+          },
+          "next": "p_gras"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "sang"
+            ]
+          },
+          "next": "p_sang"
+        },
+        {
+          "when": {
+            "and": [
+              {
+                "==": [
+                  {
+                    "var": "tache"
+                  },
+                  "encre"
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "type_encre"
+                  },
+                  "bille"
+                ]
+              }
+            ]
+          },
+          "next": "p_alcool"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "herbe"
+            ]
+          },
+          "next": "p_alcool"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "encre"
+            ]
+          },
+          "next": "p_eau_savon"
+        },
+        {
+          "when": {
+            "and": [
+              {
+                "==": [
+                  {
+                    "var": "tache"
+                  },
+                  "transpiration"
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "type_aureole"
+                  },
+                  "jauni"
+                ]
+              }
+            ]
+          },
+          "next": "p_jauni"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "transpiration"
+            ]
+          },
+          "next": "p_aureoles"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "rouille"
+            ]
+          },
+          "next": "p_rouille"
+        }
+      ],
+      "default_next": "p_eau_savon"
+    },
+    {
+      "id": "p_tanins",
+      "type": "action",
+      "title": "Matériel : vin, café",
+      "message": "Prépare ce matériel avant de commencer.",
+      "instructions": [
+        "Du liquide vaisselle",
+        "Du vinaigre blanc",
+        "Un bol avec 50 cl d'eau tiède",
+        "Une cuillère à soupe pour doser",
+        "Des chiffons blancs et du papier absorbant",
+        "Compte 30 minutes."
+      ],
+      "next": "m1_tanins"
+    },
+    {
+      "id": "m1_tanins",
+      "type": "action",
+      "title": "Méthode 1 : vin, café",
+      "message": "On rince, puis on dissout la tache avec un mélange doux de liquide vaisselle et de vinaigre. [image : rinçage par l'envers sous l'eau froide]",
+      "instructions": [
+        "Rince la tache à l'eau froide par l'envers du tissu, pour la chasser vers l'extérieur.",
+        "Mélange 1 cuillère à soupe de liquide vaisselle et 1 cuillère à soupe de vinaigre blanc dans l'eau tiède.",
+        "Tamponne la tache avec un chiffon imbibé du mélange, du bord vers le centre.",
+        "Laisse agir 15 minutes, en épongeant de temps en temps avec du papier absorbant.",
+        "Rince à l'eau froide.",
+        "Lave selon l'étiquette, puis regarde la zone avant de faire sécher."
+      ],
+      "next": "q_resultat1"
+    },
+    {
+      "id": "p_alcool",
+      "type": "action",
+      "title": "Matériel : alcool",
+      "message": "Prépare ce matériel avant de commencer.",
+      "instructions": [
+        "De l'alcool à 70° ou à 90°, ménager ou de pharmacie",
+        "Des cotons ou des cotons-tiges",
+        "Plusieurs épaisseurs de papier absorbant",
+        "Du liquide vaisselle",
+        "Une pièce aérée, loin de toute flamme : l'alcool est inflammable",
+        "Compte 20 minutes."
+      ],
+      "next": "m1_alcool"
+    },
+    {
+      "id": "m1_alcool",
+      "type": "action",
+      "title": "Méthode 1 : alcool",
+      "message": "L'alcool dissout l'encre de stylo et le vert de l'herbe. [image : papier absorbant glissé sous la tache]",
+      "instructions": [
+        "Glisse plusieurs épaisseurs de papier absorbant sous la tache.",
+        "Imbibe un coton d'alcool et tamponne la tache du bord vers le centre, sans frotter.",
+        "Change de coton et de papier dès qu'ils se colorent.",
+        "Continue tant que la couleur passe sur le coton.",
+        "Dépose une goutte de liquide vaisselle, tamponne, puis rince à l'eau froide.",
+        "Lave selon l'étiquette, puis regarde la zone avant de faire sécher."
+      ],
+      "next": "q_resultat1"
+    },
+    {
+      "id": "p_eau_savon",
+      "type": "action",
+      "title": "Matériel : eau et savon",
+      "message": "Prépare ce matériel avant de commencer.",
+      "instructions": [
+        "Du liquide vaisselle",
+        "De l'eau froide",
+        "Des chiffons blancs",
+        "Du papier absorbant",
+        "Compte 20 minutes."
+      ],
+      "next": "m1_eau_savon"
+    },
+    {
+      "id": "m1_eau_savon",
+      "type": "action",
+      "title": "Méthode 1 : eau et savon",
+      "message": "On commence par le plus doux : eau froide et liquide vaisselle.",
+      "instructions": [
+        "Passe la tache sous un filet d'eau froide, par l'envers, pour la chasser hors du tissu.",
+        "Dépose une goutte de liquide vaisselle et tamponne avec un chiffon blanc.",
+        "Laisse agir 10 minutes.",
+        "Rince à l'eau froide jusqu'à ce que l'eau coule claire.",
+        "Éponge avec du papier absorbant.",
+        "Lave à 30 °C au plus, puis regarde la zone avant de faire sécher."
+      ],
+      "next": "q_resultat1"
+    },
+    {
+      "id": "p_sang",
+      "type": "action",
+      "title": "Matériel : sang",
+      "message": "Prépare ce matériel avant de commencer.",
+      "instructions": [
+        "De l'eau bien froide",
+        "Du sel fin",
+        "Un bol ou une petite bassine",
+        "Du liquide vaisselle",
+        "Des chiffons blancs",
+        "Compte 45 minutes, dont 30 de trempage."
+      ],
+      "next": "m1_sang"
+    },
+    {
+      "id": "m1_sang",
+      "type": "action",
+      "title": "Méthode 1 : eau froide salée",
+      "message": "Le sang part à l'eau froide. Le sel aide à le décoller des fibres.",
+      "instructions": [
+        "Rince la tache à l'eau bien froide, par l'envers.",
+        "Dissous 1 cuillère à soupe de sel dans 50 cl d'eau froide.",
+        "Fais tremper la zone tachée 30 minutes.",
+        "Dépose une goutte de liquide vaisselle et tamponne avec un chiffon blanc.",
+        "Rince à l'eau froide.",
+        "Lave à 30 °C au plus, puis regarde la zone avant de faire sécher."
+      ],
+      "next": "q_resultat1"
+    },
+    {
+      "id": "p_gras",
+      "type": "action",
+      "title": "Matériel : gras",
+      "message": "Prépare ce matériel avant de commencer.",
+      "instructions": [
+        "Du talc, de la terre de Sommières ou de la fécule de maïs",
+        "Une brosse douce (une vieille brosse à dents convient)",
+        "Une petite cuillère",
+        "Du liquide vaisselle",
+        "Du papier absorbant",
+        "Compte 1 heure, dont 30 minutes de pose."
+      ],
+      "next": "m1_gras"
+    },
+    {
+      "id": "m1_gras",
+      "type": "action",
+      "title": "Méthode 1 : absorber, dégraisser",
+      "message": "On absorbe d'abord le gras à sec, puis on dissout ce qui reste. [image : tache couverte de talc]",
+      "instructions": [
+        "Retire l'excès à sec : secoue le tissu et racle doucement avec le dos de la cuillère.",
+        "Couvre la tache d'une couche épaisse de poudre absorbante.",
+        "Laisse agir 30 minutes, puis retire la poudre en tapotant le tissu et avec la brosse douce.",
+        "Dépose quelques gouttes de liquide vaisselle et fais-les pénétrer du bout des doigts.",
+        "Laisse agir 10 minutes, puis rince à l'eau tiède.",
+        "Lave à la température la plus haute permise par l'étiquette, puis regarde la zone avant de faire sécher."
+      ],
+      "next": "q_resultat1"
+    },
+    {
+      "id": "p_aureoles",
+      "type": "action",
+      "title": "Matériel : auréoles",
+      "message": "Prépare ce matériel avant de commencer.",
+      "instructions": [
+        "Du vinaigre blanc",
+        "Une bassine et 1 litre d'eau tiède",
+        "Un verre pour doser",
+        "Une brosse souple",
+        "Compte 1 heure."
+      ],
+      "next": "m1_aureoles"
+    },
+    {
+      "id": "m1_aureoles",
+      "type": "action",
+      "title": "Méthode 1 : vinaigre blanc",
+      "message": "Le vinaigre dissout les dépôts de sueur et de déodorant.",
+      "instructions": [
+        "Verse un verre de vinaigre blanc dans 1 litre d'eau tiède.",
+        "Fais tremper la zone jaunie 30 minutes.",
+        "Tapote la marque avec la brosse souple, sans frotter.",
+        "Rince à l'eau claire.",
+        "Lave selon l'étiquette, puis regarde la zone avant de faire sécher."
+      ],
+      "next": "q_resultat1"
+    },
+    {
+      "id": "p_jauni",
+      "type": "action",
+      "title": "Matériel : linge jauni",
+      "message": "Prépare ce matériel avant de commencer.",
+      "instructions": [
+        "Du bicarbonate de soude",
+        "Ta lessive habituelle",
+        "Une bassine assez grande pour y plonger le linge",
+        "Compte une nuit de trempage."
+      ],
+      "next": "m1_jauni"
+    },
+    {
+      "id": "m1_jauni",
+      "type": "action",
+      "title": "Méthode 1 : bicarbonate",
+      "message": "Un long trempage décolle les dépôts jaunis par le temps.",
+      "instructions": [
+        "Remplis la bassine d'eau tiède.",
+        "Ajoute 3 cuillères à soupe de bicarbonate et une dose de lessive.",
+        "Plonge le linge entièrement et laisse tremper toute une nuit.",
+        "Rince à l'eau claire.",
+        "Lave selon l'étiquette, puis regarde le linge avant de le faire sécher."
+      ],
+      "next": "q_resultat1"
+    },
+    {
+      "id": "p_rouille",
+      "type": "action",
+      "title": "Matériel : rouille",
+      "message": "Prépare ce matériel avant de commencer.",
+      "instructions": [
+        "Un citron ou du jus de citron",
+        "Du sel fin",
+        "Un bol",
+        "Compte 1 heure et quart."
+      ],
+      "next": "m1_rouille"
+    },
+    {
+      "id": "m1_rouille",
+      "type": "action",
+      "title": "Méthode 1 : citron et sel",
+      "message": "L'acide du citron dissout la rouille. Le sel l'aide à agir.",
+      "instructions": [
+        "Retire l'objet rouillé s'il est encore là : épingle, bouton ou agrafe.",
+        "Pose la zone tachée bien à plat sur le bol.",
+        "Couvre la tache de sel fin, puis arrose-la de jus de citron.",
+        "Laisse agir 1 heure, à l'abri du soleil.",
+        "Rince abondamment à l'eau froide.",
+        "Lave selon l'étiquette, puis regarde la zone avant de faire sécher."
+      ],
+      "next": "q_resultat1"
+    },
+    {
+      "id": "q_resultat1",
+      "type": "question",
+      "title": "Résultat",
+      "prompt": "Après ce lavage, la tache est-elle partie ?",
+      "input_key": "resultat1",
+      "input_type": "choice",
+      "choices": [
+        {
+          "value": "oui",
+          "label": "Oui, elle a disparu"
+        },
+        {
+          "value": "non",
+          "label": "Non, il en reste"
+        }
+      ],
+      "next": {
+        "oui": "a_finition",
+        "non": "aig_seconde"
+      }
+    },
+    {
+      "id": "aig_seconde",
+      "type": "router",
+      "title": "Seconde méthode",
+      "routes": [
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tissu"
+              },
+              "laine"
+            ]
+          },
+          "next": "p2_laine"
+        },
+        {
+          "when": {
+            "in": [
+              {
+                "var": "tache"
+              },
+              [
+                "vin",
+                "cafe",
+                "herbe",
+                "transpiration"
+              ]
+            ]
+          },
+          "next": "p2_oxygene"
+        },
+        {
+          "when": {
+            "in": [
+              {
+                "var": "tache"
+              },
+              [
+                "gras",
+                "maquillage",
+                "encre"
+              ]
+            ]
+          },
+          "next": "p2_fiel"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "rouille"
+            ]
+          },
+          "next": "p2_rouille"
+        }
+      ],
+      "default_next": "p2_enzymes"
+    },
+    {
+      "id": "p2_oxygene",
+      "type": "action",
+      "title": "Matériel : oxygène actif",
+      "message": "La tache résiste : on passe à l'oxygène actif. Prépare ce matériel.",
+      "instructions": [
+        "Du percarbonate de soude (oxygène actif)",
+        "Une bassine",
+        "Une cuillère pour doser",
+        "Des gants de ménage : le produit irrite la peau",
+        "Compte au moins 1 heure et demie, trempage compris."
+      ],
+      "next": "aig_oxygene"
+    },
+    {
+      "id": "aig_oxygene",
+      "type": "router",
+      "title": "Dosage selon la couleur",
+      "routes": [
+        {
+          "when": {
+            "==": [
+              {
+                "var": "couleur"
+              },
+              "blanc"
+            ]
+          },
+          "next": "m2_oxygene_blanc"
+        }
+      ],
+      "default_next": "m2_oxygene_couleur"
+    },
+    {
+      "id": "m2_oxygene_blanc",
+      "type": "action",
+      "title": "Méthode 2 : oxygène, blanc",
+      "message": "Sur le blanc, l'oxygène actif efface les traces sans jaunir le tissu.",
+      "instructions": [
+        "Mets les gants.",
+        "Remplis la bassine d'eau, à la température la plus haute permise par l'étiquette.",
+        "Dissous 1 cuillère à soupe de percarbonate par litre d'eau.",
+        "Plonge le vêtement et laisse tremper 2 heures au moins, jusqu'à 6 heures si la tache pâlit encore.",
+        "Rince à l'eau claire.",
+        "Lave selon l'étiquette, puis regarde la zone avant de faire sécher."
+      ],
+      "next": "q_resultat2"
+    },
+    {
+      "id": "m2_oxygene_couleur",
+      "type": "action",
+      "title": "Méthode 2 : oxygène, couleurs",
+      "message": "À faible dose et à l'eau tiède, l'oxygène actif respecte la plupart des couleurs.",
+      "instructions": [
+        "Teste d'abord le mélange sur une couture intérieure.",
+        "Mets les gants.",
+        "Remplis la bassine d'eau tiède, 30 °C au plus.",
+        "Dissous 1 cuillère à café de percarbonate par litre d'eau.",
+        "Plonge le vêtement 1 heure, sans dépasser.",
+        "Rince à l'eau claire, lave selon l'étiquette, puis regarde la zone avant de faire sécher."
+      ],
+      "next": "q_resultat2"
+    },
+    {
+      "id": "p2_fiel",
+      "type": "action",
+      "title": "Matériel : savon au fiel",
+      "message": "La tache résiste : on passe au savon au fiel de bœuf. Prépare ce matériel.",
+      "instructions": [
+        "Un pain de savon au fiel de bœuf (savon détachant)",
+        "Une brosse souple",
+        "De l'eau tiède",
+        "Compte 45 minutes."
+      ],
+      "next": "m2_fiel"
+    },
+    {
+      "id": "m2_fiel",
+      "type": "action",
+      "title": "Méthode 2 : savon au fiel",
+      "message": "Le savon au fiel de bœuf dissout le gras et décolle les pigments tenaces.",
+      "instructions": [
+        "Humidifie la tache à l'eau tiède.",
+        "Passe le pain de savon sur la tache, des deux côtés du tissu.",
+        "Fais pénétrer avec la brosse souple, par petits mouvements, sans forcer.",
+        "Laisse agir 30 minutes, sans laisser sécher.",
+        "Rince à l'eau tiède.",
+        "Lave à la température la plus haute permise par l'étiquette, puis regarde la zone avant de faire sécher."
+      ],
+      "next": "q_resultat2"
+    },
+    {
+      "id": "p2_rouille",
+      "type": "action",
+      "title": "Matériel : antirouille",
+      "message": "La tache résiste : on passe à un antirouille pour textile. Prépare ce matériel.",
+      "instructions": [
+        "Un antirouille spécial textile",
+        "Des gants de ménage",
+        "Un coton-tige",
+        "Une pièce aérée",
+        "Compte 30 minutes."
+      ],
+      "next": "m2_rouille"
+    },
+    {
+      "id": "m2_rouille",
+      "type": "action",
+      "title": "Méthode 2 : antirouille",
+      "message": "Un antirouille pour textile dissout la rouille que le citron n'a pas eue.",
+      "instructions": [
+        "Mets les gants et lis la notice du produit.",
+        "Applique le produit sur la tache seulement, avec le coton-tige.",
+        "Laisse agir le temps indiqué, sans dépasser.",
+        "Rince abondamment à l'eau froide.",
+        "Lave selon l'étiquette, puis regarde la zone avant de faire sécher."
+      ],
+      "next": "q_resultat2"
+    },
+    {
+      "id": "p2_enzymes",
+      "type": "action",
+      "title": "Matériel : enzymes",
+      "message": "La tache résiste : on passe à une lessive aux enzymes. Prépare ce matériel.",
+      "instructions": [
+        "Une lessive liquide aux enzymes (la mention figure sur l'emballage)",
+        "Une bassine d'eau froide",
+        "Compte 2 heures, trempage compris."
+      ],
+      "next": "m2_enzymes"
+    },
+    {
+      "id": "m2_enzymes",
+      "type": "action",
+      "title": "Méthode 2 : enzymes",
+      "message": "Les enzymes digèrent les taches d'origine organique, même à l'eau froide.",
+      "instructions": [
+        "Dépose un peu de lessive pure sur la tache et fais-la pénétrer du bout des doigts.",
+        "Laisse agir 15 minutes.",
+        "Ajoute un bouchon de lessive dans la bassine d'eau froide.",
+        "Fais tremper le vêtement 1 à 2 heures.",
+        "Rince à l'eau froide.",
+        "Lave à 30 °C au plus, puis regarde la zone avant de faire sécher."
+      ],
+      "next": "q_resultat2"
+    },
+    {
+      "id": "p2_laine",
+      "type": "action",
+      "title": "Matériel : laine",
+      "message": "La tache résiste : on passe à un bain doux spécial laine. Prépare ce matériel.",
+      "instructions": [
+        "Une lessive spéciale laine, sans enzymes",
+        "Du vinaigre blanc",
+        "Une bassine d'eau froide",
+        "Une grande serviette éponge",
+        "Compte 1 heure, plus le séchage à plat."
+      ],
+      "next": "m2_laine"
+    },
+    {
+      "id": "m2_laine",
+      "type": "action",
+      "title": "Méthode 2 : bain doux laine",
+      "message": "Un bain doux puis un rinçage vinaigré libèrent la tache sans feutrer la laine. [image : lainage séché à plat sur une serviette]",
+      "instructions": [
+        "Dilue une dose de lessive spéciale laine dans l'eau froide.",
+        "Plonge le lainage et laisse-le tremper 30 minutes, sans le remuer.",
+        "Presse doucement la zone tachée entre tes mains, sans frotter ni tordre.",
+        "Rince à l'eau froide additionnée d'un verre de vinaigre blanc.",
+        "Roule le lainage dans la serviette pour l'essorer.",
+        "Fais-le sécher à plat, loin d'un radiateur, puis regarde la zone."
+      ],
+      "next": "q_resultat2"
+    },
+    {
+      "id": "q_resultat2",
+      "type": "question",
+      "title": "Résultat final",
+      "prompt": "Après cette seconde méthode, la tache est-elle partie ?",
+      "input_key": "resultat2",
+      "input_type": "choice",
+      "choices": [
+        {
+          "value": "oui",
+          "label": "Oui, elle a disparu"
+        },
+        {
+          "value": "non",
+          "label": "Non, il en reste"
+        }
+      ],
+      "next": {
+        "oui": "a_finition",
+        "non": "a_pressing_echec"
+      }
+    },
+    {
+      "id": "a_finition",
+      "type": "action",
+      "title": "Finition",
+      "message": "Bravo, la tache a disparu ! Il reste à bien finir.",
+      "instructions": [
+        "Fais sécher le vêtement à l'air libre.",
+        "Regarde la zone à la lumière du jour une fois sèche : une trace invisible mouillée peut réapparaître.",
+        "Attends qu'il soit bien sec avant de le repasser."
+      ],
+      "next": "aig_fin"
+    },
+    {
+      "id": "a_pressing_echec",
+      "type": "action",
+      "title": "Direction pressing",
+      "message": "La tache résiste aux deux méthodes. Un pressing a des détachants professionnels pour finir le travail.",
+      "instructions": [
+        "N'essaie pas d'autre produit : un mélange peut fixer la tache ou abîmer le tissu.",
+        "Ne repasse pas et ne passe pas au sèche-linge.",
+        "Apporte le vêtement au pressing en disant ce qui a taché et les produits que tu as utilisés."
+      ],
+      "next": "aig_fin"
+    },
+    {
+      "id": "aig_fin",
+      "type": "router",
+      "title": "Conseil final",
+      "routes": [
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tissu"
+              },
+              "laine"
+            ]
+          },
+          "next": "fin_laine"
+        },
+        {
+          "when": {
+            "in": [
+              {
+                "var": "tache"
+              },
+              [
+                "vin",
+                "cafe",
+                "herbe"
+              ]
+            ]
+          },
+          "next": "fin_vegetal"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "sang"
+            ]
+          },
+          "next": "fin_sang"
+        },
+        {
+          "when": {
+            "in": [
+              {
+                "var": "tache"
+              },
+              [
+                "gras",
+                "maquillage"
+              ]
+            ]
+          },
+          "next": "fin_gras"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "encre"
+            ]
+          },
+          "next": "fin_encre"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "transpiration"
+            ]
+          },
+          "next": "fin_transpiration"
+        },
+        {
+          "when": {
+            "==": [
+              {
+                "var": "tache"
+              },
+              "rouille"
+            ]
+          },
+          "next": "fin_rouille"
+        }
+      ],
+      "default_next": "fin_inconnue"
+    },
+    {
+      "id": "fin_laine",
+      "type": "end",
+      "title": "Fin : laine",
+      "summary": "Pour tes lainages, garde une lessive spéciale laine sans enzymes, choisie parmi les produits conseillés de l'application. Traite chaque tache à l'eau froide, en tamponnant, et fais sécher à plat."
+    },
+    {
+      "id": "fin_vegetal",
+      "type": "end",
+      "title": "Fin : vin, café, herbe",
+      "summary": "La prochaine fois, rince tout de suite à l'eau froide et garde un détachant avant lavage à l'oxygène actif, choisi parmi les produits conseillés de l'application."
+    },
+    {
+      "id": "fin_sang",
+      "type": "end",
+      "title": "Fin : sang",
+      "summary": "Pour les prochaines taches de sang, rince toujours à l'eau froide et garde une lessive aux enzymes, choisie parmi les produits conseillés de l'application."
+    },
+    {
+      "id": "fin_gras",
+      "type": "end",
+      "title": "Fin : gras",
+      "summary": "Pour les prochaines taches grasses, garde une poudre absorbante et un savon détachant au fiel de bœuf, choisis parmi les produits conseillés de l'application. Mets un tablier pour cuisiner et enfile tes hauts avant de te maquiller."
+    },
+    {
+      "id": "fin_encre",
+      "type": "end",
+      "title": "Fin : encre",
+      "summary": "Pour l'encre, garde de l'alcool à 70° et un détachant spécial encre, choisi parmi les produits conseillés de l'application. Vide les poches avant chaque lavage et range tes stylos fermés."
+    },
+    {
+      "id": "fin_transpiration",
+      "type": "end",
+      "title": "Fin : auréoles",
+      "summary": "Contre les auréoles et le jaunissement, garde un détachant à l'oxygène actif, choisi parmi les produits conseillés de l'application. Laisse sécher ton déodorant avant de t'habiller et range ton linge propre et bien sec."
+    },
+    {
+      "id": "fin_rouille",
+      "type": "end",
+      "title": "Fin : rouille",
+      "summary": "Garde un antirouille spécial textile, choisi parmi les produits conseillés de l'application. Vide les poches avant lavage et ne fais jamais sécher ton linge sur un support rouillé."
+    },
+    {
+      "id": "fin_inconnue",
+      "type": "end",
+      "title": "Fin : tache inconnue",
+      "summary": "Garde un détachant avant lavage polyvalent, choisi parmi les produits conseillés de l'application. À la prochaine tache, traite-la dans l'heure, à l'eau froide."
+    },
+    {
+      "id": "fin_pressing_delicat",
+      "type": "end",
+      "title": "Fin : pressing",
+      "summary": "Confie ce textile à un pressing. Pour les petites taches à venir, garde un détachant à sec en poudre, sans eau, choisi parmi les produits conseillés de l'application, et teste-le d'abord sur une zone cachée."
+    },
+    {
+      "id": "fin_pressing_cuir",
+      "type": "end",
+      "title": "Fin : cuir et daim",
+      "summary": "Confie l'article à un pressing spécialisé cuir ou à un cordonnier. Ensuite, protège-le avec un imperméabilisant pour cuir et daim, choisi parmi les produits conseillés de l'application."
+    }
+  ]
+}

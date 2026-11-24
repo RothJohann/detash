@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-11-23T13:10:39Z",
+  "templateSource": "src/genapp-template",
+  "slug": "detash",
+  "title": "Detash",
+  "workflowTabLabel": "Détacher",
+  "withDemoGraph": false,
+  "graphSource": "custom",
+  "appIdBase": "com.idnsol",
+  "applicationId": "com.idnsol.detash",
+  "monetization": {
+    "affiliationNetwork": "amazon",
+    "affiliationTag": "idnsol0d-21"
+  },
+  "profile": {
+    "needsBackend": false,
+    "userVoice": false,
+    "ideeSource": {
+      "idIdee": "GENAPP-21",
+      "datePassage": "2026-11-15",
+      "grilleVersion": "v2.1",
+      "total": 42,
+      "maxAtteignable": 75,
+      "rang": 21,
+      "dossier": "doc/04-projet/bizidgen/passages/detash.md"
+    }
+  }
+}
